@@ -22,9 +22,11 @@ class DatabaseManager {
     }
 
     try {
-      await mongoose.connect(process.env.DB_URI);
-      this.isConnected = true;
-      console.log("MongoDB connected");
+      if(process.env.DB_URI) {
+        await mongoose.connect(process.env.DB_URI);
+        this.isConnected = true;
+        console.log("MongoDB connected");
+      }
     } catch (error) {
       console.error(`ERROR: ${error}`);
       throw new Error("Failed to connect to the database");
