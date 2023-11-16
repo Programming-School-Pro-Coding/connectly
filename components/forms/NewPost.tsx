@@ -243,7 +243,7 @@ const NewPost = ({ user, btnTitle }: Props) => {
                         remarkPlugins={[remarkGfm]}
                         components={{
                           code: ({ node, children, ...props }) => (
-                            <CodeBlock {...props} value={children} />
+                            <CodeBlock {...props} value={field.value !== undefined ? field.value : ''} />
                           ),
                           h1: ({ node, className, children, ...props }) => (
                             <h1

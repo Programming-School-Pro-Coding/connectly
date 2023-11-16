@@ -2,7 +2,7 @@ import PostCard from "@/components/PostCard";
 import { post } from "@/lib/interfaces";
 
 interface PostsProps {
-  products: Array<post>;
+  posts: Array<post> | null;
 }
 
 const Products: React.FC<PostsProps> = ({ posts }) => {
