@@ -22,7 +22,7 @@ async function getPosts() {
 }
 
 interface Props {
-  posts: Array<post> | null;
+  posts: post[] | null;
 }
 
 const Home = async () => {
