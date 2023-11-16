@@ -6,11 +6,11 @@ async function Page() {
 
   const userData = {
     id: String(user?.id),
-    username: user?.username,
-    name: user?.firstName ?? "",
+    username: String(user?.username),
+    name: String(user?.firstName),
     bio: "",
-    email: user?.emailAddresses[0].emailAddress,
-    image: user?.imageUrl,
+    email: String(user?.emailAddresses[0].emailAddress),
+    image: String(user?.imageUrl),
     development: "",
     phone: '',
     posts: [],

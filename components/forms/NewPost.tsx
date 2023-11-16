@@ -1,7 +1,5 @@
 "use client";
 
-console.log('medo')
-
 import * as z from "zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
@@ -354,11 +352,9 @@ const NewPost = ({ user, btnTitle }: Props) => {
             )}
           />
 
-          {/* <Link href="/"> */}
           <Button type="submit" className="bg-primary-500">
             {btnTitle}
           </Button>
-          {/* </Link> */}
         </form>
       </Form>
     </>

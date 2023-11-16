@@ -8,5 +8,8 @@ export const PostValidation = z.object({
     postId: z.string(),
     description: z.string(),
     createdAt: z.date(),
-    likes: z.array(z.object()),
+    likes: z.array(z.object({
+        postId: z.string(),
+        userId: z.string(),
+    })),
 });
