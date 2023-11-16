@@ -11,7 +11,9 @@ async function Page() {
     bio: "",
     email: user?.emailAddresses[0].emailAddress,
     image: user?.imageUrl,
-    development: ""
+    development: "",
+    phone: '',
+    posts: [],
   };
 
   return (
