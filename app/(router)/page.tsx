@@ -6,7 +6,7 @@ import Posts from '@/sections/post/page';
 import { fetchUser } from '../../lib/actions/user'
 import { fetchPosts } from '@/lib/actions/post';
 
-export async function getPosts() {
+async function getPosts() {
   const user = await currentUser();
   if(!user) return null;
 
