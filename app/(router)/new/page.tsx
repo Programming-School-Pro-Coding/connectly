@@ -12,7 +12,9 @@ const page = async () => {
     bio: "",
     email: user?.emailAddresses[0].emailAddress,
     image: user?.imageUrl,
-    development: ""
+    development: "",
+    phone: '',
+    posts: [],
   };
   return (
     <div className='container min-h-screen mx-auto my-auto bg-white w-full h-full px-5 py-5'>
