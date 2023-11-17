@@ -54,11 +54,8 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       username: user?.username ? user.username : "",
       bio: user?.bio ? user.bio : "",
       development: user?.development ? user.development : "",
-      posts: [],
       phone: user?.phone ? user.phone : "",
       email: user?.email ? user?.email : "",
-      following: [],
-      followers: [],
     },
   });
 
@@ -83,9 +80,9 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         image: values.profile_photo,
         development: values.development,
         phone: values.phone,
-        posts: values.posts,
-        following: values.following,
-        followers: values.followers,
+        posts: [],
+        following: [],
+        followers: [],
         email: values.email,
       });
 
