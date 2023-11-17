@@ -32,7 +32,7 @@ interface CreatePostParams {
     cover: string;
     postId: string;
     likes: Object;
-    createdAt: Date;
+    createdAt: string;
     description: string;
 }
 

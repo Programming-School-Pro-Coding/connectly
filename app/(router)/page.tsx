@@ -21,15 +21,13 @@ async function getPosts() {
   }
 }
 
-interface Props {
-  posts: post[] | null;
-}
+
 
 const Home = async () => {
-  const { posts } : Props = await getPosts();
+  const props = await getPosts();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-[#ecf0f1] text-[#2c3e50]">
-      <Posts posts={posts} />
+      <Posts posts={props?.posts} />
     </main>
   )
 };

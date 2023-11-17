@@ -11,12 +11,9 @@ const PostCard = async ({
   post: post;
   indicator: string;
 }) => {
-  console.log(indicator);
   const CurrentUser = await currentUser();
-  const { cover, title, description, postId, likes, createdAt, authorId } =
-    post;
 
-  const user = await fetchUser(authorId);
+  const user = await fetchUser(post?.authorId);
 
   if (indicator === "main" && CurrentUser.id === user.id) {
     return null;
@@ -24,21 +21,21 @@ const PostCard = async ({
 
   return (
     <Link
-      href={`/post/${postId}`}
+      href={`/post/${post?.postId}`}
       className="hover:scale-125 transition duration-700"
     >
       <div className="max-w-sm rounded overflow-hidden shadow-lg m-4 ml-2">
         <Image
           className="w-full h-64 object-cover object-center"
-          src={cover}
-          alt={title}
+          src={post?.cover}
+          alt={post?.title}
           width={512}
           height={512}
         />
         <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">{title}</div>
+          <div className="font-bold text-xl mb-2">{post?.title}</div>
           <p className="text-gray-700 text-base">
-            {description?.substring(0, 200)}
+            {post?.description?.substring(0, 200)}
           </p>
         </div>
         <div className="flex gap-1 px-4 py-4">
@@ -53,7 +50,7 @@ const PostCard = async ({
             <p>{user?.name}</p>
           </span>
           <span className="inline-block bg-gray-200 rounded-full px-2 py-3 text-small-medium font-semibold text-gray-700">
-            {new Date(createdAt).toDateString()}
+            {new Date(post?.createdAt).toDateString()}
           </span>
         </div>
       </div>

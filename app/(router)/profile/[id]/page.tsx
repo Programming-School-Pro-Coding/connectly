@@ -27,8 +27,9 @@ const page = async ({ params }: { params: { id: string } }) => {
           <p className="text-center">No Posts Found!</p>
         ) : (
           posts.map((post: post) => {
+            console.log(post)
             return (
-              <div key={post.postId}>
+              <div key={post?.postId}>
                 <PostCard post={post} indicator='Profile' />
               </div>
             );

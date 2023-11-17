@@ -5,26 +5,62 @@ import Markdown from "react-markdown";
 
 import { fetchPost } from "@/lib/actions/post";
 import CodeBlock from "../../../../components/ui/code";
+import { fetchUser } from "@/lib/actions/user";
 
-const page = async ({ params }: { params: { id: string } }) => {
+const Page = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
   const post = await fetchPost(id);
 
+  const user = await fetchUser(post?.authorId);
+
   return (
-    <div className="flex flex-col gap-2 items-center justify-center mx-40">
-      <Image src={post?.cover} alt={post?.title} width={200} height={200} />
-      <h1>{post?.title}</h1>
-      <div className="mt-5 p-10 border border-slate-900">
+    <div className="flex flex-col items-center justify-center mx-4 md:mx-10 lg:mx-20">
+      <div className="mb-4">
+        <Image
+          src={post?.cover}
+          alt={post?.title}
+          className="object-contain rounded-xl"
+          width={1000}
+          height={1000}
+        />
+      </div>
+      <div className="flex items-center gap-4 mb-2">
+        <div className="flex items-center">
+          <Image
+            src={user?.image}
+            alt={user?.name}
+            className="w-10 h-10 rounded-full mr-2"
+            width={84}
+            height={84}
+          />
+          <p className="font-bold text-lg">{user?.name}</p>
+        </div>
+        <p className="text-gray-500">
+          {new Date(post?.createdAt).toDateString()}
+        </p>
+      </div>
+      <h1 className="text-heading1-bold font-bold mb-2 text-center">
+        {post?.title}
+      </h1>
+      <div className="mt-5 p-8 max-w-2xl w-full mx-auto">
         <Markdown
           className="markdown"
           remarkPlugins={[remarkGfm]}
           components={{
             code: ({ node, children, ...props }) => (
-              <CodeBlock {...props} language={children?.split("\n")[0].trim().toLowerCase()} value={children} />
+              <CodeBlock
+                {...props}
+                language={
+                  typeof children === "string"
+                    ? children.split("\n")[0].trim().toLowerCase()
+                    : ""
+                }
+                value={String(children)}
+              />
             ),
             h1: ({ node, className, children, ...props }) => (
               <h1
-                className={`font-bold text-heading1-bold mb-4 text-left ${className}`}
+                className={`font-bold text-heading1-bold mb-4 ${className}`}
                 {...props}
               >
                 {children}
@@ -32,7 +68,7 @@ const page = async ({ params }: { params: { id: string } }) => {
             ),
             h2: ({ node, className, children, ...props }) => (
               <h2
-                className={`font-semibold text-heading2-bold mb-4 text-left ${className}`}
+                className={`font-semibold text-heading2-bold mb-4 ${className}`}
                 {...props}
               >
                 {children}
@@ -40,7 +76,7 @@ const page = async ({ params }: { params: { id: string } }) => {
             ),
             h3: ({ node, className, children, ...props }) => (
               <h3
-                className={`font-semibold text-heading3-bold mb-4 text-left ${className}`}
+                className={`font-semibold text-heading3-bold mb-4 ${className}`}
                 {...props}
               >
                 {children}
@@ -115,4 +151,4 @@ const page = async ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default page;
+export default Page;

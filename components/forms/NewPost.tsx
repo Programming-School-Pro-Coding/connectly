@@ -56,39 +56,43 @@ const NewPost = ({ user, btnTitle }: Props) => {
       title: "",
       content: "",
       description: "",
-      createdAt: new Date(
-        new Date().toLocaleString("en-GB", { hour12: false })
-      ),
-      authorId: user.id,
-      postId: createId(),
-      likes: [],
     },
   });
 
   const onSubmit = async (values: z.infer<typeof PostValidation>) => {
-    try {
-      const blob = values.cover;
+    const blob = values.cover;
 
-      const hasImageChanged = isBase64Image(blob);
-      if (hasImageChanged) {
-        const imgRes = await startUpload(files);
+    const hasImageChanged = isBase64Image(blob);
+    if (hasImageChanged) {
+      const imgRes = await startUpload(files);
 
-        if (imgRes && imgRes[0].fileUrl) {
-          values.cover = imgRes[0].fileUrl;
-        }
+      if (imgRes && imgRes[0].fileUrl) {
+        values.cover = imgRes[0].fileUrl;
       }
-
-      const post = {
-        postId: values.postId,
-        userId: values.authorId,
-      };
-
-      await createPost(values, post);
-
-      router.push("/");
-    } catch (error) {
-      console.log(`Error Occured: ${error}`);
     }
+
+    const postId = createId();
+
+    const post = {
+      postId: postId,
+      userId: user.id,
+    };
+
+    await createPost(
+      {
+        title: values.title,
+        content: values.content,
+        cover: values.cover,
+        description: values.description,
+        createdAt: new Date().toDateString(),
+        authorId: user.id,
+        postId: postId,
+        likes: [],
+      },
+      post
+    );
+
+    router.push("/");
   };
 
   const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -243,7 +247,15 @@ const NewPost = ({ user, btnTitle }: Props) => {
                         remarkPlugins={[remarkGfm]}
                         components={{
                           code: ({ node, children, ...props }) => (
-                            <CodeBlock {...props} value={field.value !== undefined ? field.value : ''} />
+                            <CodeBlock
+                              {...props}
+                              language={
+                                typeof children === "string"
+                                  ? children.split("\n")[0].trim().toLowerCase()
+                                  : ""
+                              }
+                              value={String(children)}
+                            />
                           ),
                           h1: ({ node, className, children, ...props }) => (
                             <h1

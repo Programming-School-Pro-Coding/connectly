@@ -2,10 +2,7 @@ import PropTypes from 'prop-types';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-import { programmingLanguages } from '@/constants';
-
-export default function CodeBlock({ language = null, value }) {
-  console.log(language, value);
+export default function CodeBlock({ language, value }: { language: string, value: string, }) {
   return (
     <SyntaxHighlighter language={language} style={darcula}>
       {value}
