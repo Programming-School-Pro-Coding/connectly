@@ -3,12 +3,12 @@ import { currentUser } from "@clerk/nextjs";
 import Profile from "../../../../sections/profile/[id]";
 import { fetchUser } from "@/lib/actions/user";
 import { fetchPost } from "@/lib/actions/post";
-import { post } from "@/lib/interfaces";
+import { post, user } from "@/lib/interfaces";
 import PostCard from "@/components/PostCard";
 
 const page = async ({ params }: { params: { id: string } }) => {
   const posts: Array<post> = [];
-  const current = await currentUser();
+  const current : user = await currentUser();
   const id = params.id;
 
   const user = await fetchUser(id);
