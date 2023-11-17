@@ -28,6 +28,11 @@ const Dropdown = ({
     setIsOpen(!isOpen);
   };
 
+  const handleSignOut = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    signOut();
+  };
+
   return (
     <div className="relative inline-block text-left">
       <button
@@ -94,7 +99,7 @@ const Dropdown = ({
               <span className="font-bold text-base">Settings</span>
             </a>
             <button
-              onClick={signOut}
+              onClick={handleSignOut}
               className="flex items-center jusitfy-center gap-16 w-full py-[0.875rem] px-[1.5rem] text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
             >
