@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { currentUser } from "@clerk/nextjs";
-import { post } from "@/lib/interfaces";
+import { post, user as UserType } from "@/lib/interfaces";
 import Link from "next/link";
 import { fetchUser } from "@/lib/actions/user";
 
@@ -13,9 +13,14 @@ const PostCard = async ({
 }) => {
   const CurrentUser = await currentUser();
 
-  const user = await fetchUser(post?.authorId);
+  const user: UserType | null = await fetchUser(post?.authorId);
 
-  if (indicator === "main" && CurrentUser.id === user.id) {
+  // Handle the case where the user is not found
+  if (!user || !CurrentUser) {
+    return null;
+  }
+
+  if (indicator === "main" && String(CurrentUser.id) === user.id) {
     return null;
   }
 
