@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { EpicIcon } from "../assets";
-import Dropdown from "./ui/dropdown";
+import { EpicIcon } from "../../assets";
+import Dropdown from "../ui/dropdown";
 import { fetchUser } from "@/lib/actions/user";
 
 const Navbar = async ({ id, email }: { id: string, email: string }) => {
@@ -18,6 +18,12 @@ const Navbar = async ({ id, email }: { id: string, email: string }) => {
       </div>
 
       <div className="flex items-center justify-center gap-5">
+        <Link
+          href="/"
+          className="bg-[#192655] transition duration-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-right"
+        >
+          Home
+        </Link>
         <Link
           href="/new"
           className="bg-[#192655] transition duration-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-right"

@@ -1,7 +1,7 @@
 import "../globals.css";
 import { ClerkProvider, currentUser } from "@clerk/nextjs";
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/shared/Navbar";
 
 export const metadata: Metadata = {
   title: "Connectly",

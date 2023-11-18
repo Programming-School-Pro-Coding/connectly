@@ -4,12 +4,12 @@ import Profile from "@/sections/profile/[id]";
 import { fetchUser } from "@/lib/actions/user";
 import { fetchPost } from "@/lib/actions/post";
 import { post, user as UserType } from "@/lib/interfaces";
-import PostCard from "@/components/PostCard";
+import PostCard from "@/components/shared/PostCard";
 
 const page = async ({ params }: { params: { id: string } }) => {
   const posts: Array<post> = [];
   const current = await currentUser();
-  
+
   const id = params.id;
   const user: UserType | null = await fetchUser(id);
 
