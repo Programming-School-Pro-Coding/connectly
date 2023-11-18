@@ -5,13 +5,17 @@ import { useState, useEffect } from "react";
 import { fetchUser } from "@/lib/actions/user";
 import { user } from "@/lib/interfaces";
 
-const FollowersBox = ({ followers }) => {
+interface follower {
+  id: string;
+}
+
+const FollowersBox = ({ followers } : { followers: Array<follower> }) => {
   const fetchUserDetails = async () => {
     const userPromises = followers.map((follower) => fetchUser(follower.id));
     return Promise.all(userPromises);
   };
 
-  const [userDetails, setUserDetails] = useState([]);
+  const [userDetails, setUserDetails] = useState<user[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
