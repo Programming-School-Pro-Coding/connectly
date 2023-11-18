@@ -4,6 +4,7 @@ import * as z from "zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { ChangeEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
@@ -24,7 +25,7 @@ import { isBase64Image } from "@/lib/utils";
 import { UserValidation } from "@/lib/validations/user";
 import { createUser } from "@/lib/actions/user";
 import { post } from "@/lib/interfaces";
-import { redirect } from "next/navigation";
+import Loader from "../shared/Loader";
 
 interface Props {
   user: {
@@ -42,7 +43,9 @@ interface Props {
 }
 
 const AccountProfile = ({ user, btnTitle }: Props) => {
+  const router = useRouter();
   const { startUpload } = useUploadThing("media");
+  const [loading, setLoading] = useState(false);
 
   const [files, setFiles] = useState<File[]>([]);
 
@@ -61,6 +64,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 
   const onSubmit = async (values: z.infer<typeof UserValidation>) => {
     try {
+      setLoading(true)
       const blob = values.profile_photo;
 
       const hasImageChanged = isBase64Image(blob);
@@ -87,7 +91,8 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       });
 
       // redirect("/");
-      window.location.href = "/";
+      setLoading(false);
+      router.push('/')
     } catch (error) {
       console.log(`Error Occured: ${error}`);
     }
@@ -115,6 +120,8 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       fileReader.readAsDataURL(file);
     }
   };
+
+  if(loading) <Loader />
 
   return (
     <div>
@@ -347,3 +354,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 };
 
 export default AccountProfile;
+function setLoading(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}
+
