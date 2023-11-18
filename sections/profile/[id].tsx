@@ -15,7 +15,7 @@ const Profile = ({ user, id }: { user: user; id: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [following, setFollowing] = useState("Following");
   const [isCurrentUserAFollower, setIsCurrentUserAFollower] = useState(
-    user?.followers.map((follower) => follower.id === id)
+    user?.followers.map((follower: { id: string }) => follower.id === id)
   );
 
   const handleFollowClick = () => {
