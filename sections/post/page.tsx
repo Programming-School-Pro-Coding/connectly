@@ -14,7 +14,7 @@ const Products: React.FC<PostsProps> = ({ posts }) => {
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex flex-col gap-4 items-center justify-center">
-        {posts.map((post: post) => (
+        {posts.length === 0 ? <p className="text-center text-2xl text-light-3">No Posts</p> : posts.map((post: post) => (
           <PostCard key={post.postId} post={post} indicator={"main"} />
         ))}
       </div>
