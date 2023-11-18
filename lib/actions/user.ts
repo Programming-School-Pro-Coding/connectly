@@ -3,7 +3,6 @@
 import User from "../models/User";
 
 import { post } from "../interfaces";
-import { connectToDB } from "../mongoose";
 import DatabaseManager from "@/Managers/DatabaseManager";
 
 const dbManager = DatabaseManager.getInstance();
@@ -16,10 +15,10 @@ export async function handleUnFollow(fetchedId: string, currentId: string) {
     const userToUnFollow = await User.findOne({ id: fetchedId });
 
     const indexFollowing = currentUser.following.findIndex(
-      (followedUser) => followedUser.id === fetchedId
+      (followedUser: { id: string; }) => followedUser.id === fetchedId
     );
     const indexFollowers = userToUnFollow.followers.findIndex(
-      (follower) => follower.id === currentId
+      (follower: { id: string; }) => follower.id === currentId
     );
 
     if (indexFollowing !== -1 && indexFollowers !== -1) {
@@ -34,7 +33,7 @@ export async function handleUnFollow(fetchedId: string, currentId: string) {
     } else {
       console.log("User not found in following or followers array.");
     }
-  } catch (err) {
+  } catch (err: any) {
     throw new Error(`Failed to update user following: ${err.message}`);
   }
 }
@@ -57,7 +56,7 @@ export async function handleFollow({
 
     await User.updateOne({ id: currentUserId }, { following: following });
     await User.updateOne({ id: fetchedUserId }, { followers: followers });
-  } catch (err) {
+  } catch (err: any) {
     throw new Error(`Failed to update user following: ${err.message}`);
   }
 }
@@ -71,6 +70,14 @@ export async function fetchUser(userId: string) {
   }
 }
 
+interface follower {
+  id: string;
+}
+
+interface following {
+  id: string;
+}
+
 interface Params {
   userId: string;
   username: string;
@@ -80,8 +87,8 @@ interface Params {
   development: string;
   phone: string;
   posts: Array<post>;
-  following: Array<>;
-  followers: Array<>;
+  following: Array<following>;
+  followers: Array<follower>;
   email: string;
 }
 
