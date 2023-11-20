@@ -34,7 +34,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
             width={84}
             height={84}
           />
-          <Link href={`/user/${user?.id}`}><p className="font-bold text-lg">{user?.name}</p></Link>
+          <Link href={`/profile/${user?.id}`}><p className="font-bold text-lg">{user?.name}</p></Link>
         </div>
         <p className="text-gray-500">
           {new Date(post?.createdAt).toDateString()}
