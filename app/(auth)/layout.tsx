@@ -22,11 +22,11 @@ export default async function RootLayout({
               {children}
             </section>
 
-            <img
+{/*             <img
               src="/side-img.svg"
               alt="logo"
               className="hidden xl:block h-screen w-1/2 object-cover bg-no-repeat"
-            />
+            /> */}
           </div>
         </body>
       </html>
