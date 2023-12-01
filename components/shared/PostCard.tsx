@@ -27,7 +27,6 @@ const PostCard = async ({
   return (
     <Link
       href={`/post/${post?.postId}`}
-      className="hover:scale-125 transition duration-700"
     >
       <div className="max-w-sm rounded overflow-hidden shadow-lg m-4 ml-2">
         <Image

@@ -19,7 +19,7 @@ export async function fetchPosts() {
     try {
         await connectToDB();
 
-        return await Post.find();
+        return await Post.find().limit(3);
     } catch (err) {
         throw Error(`Failed to fetch posts: ${err}`)
     }
