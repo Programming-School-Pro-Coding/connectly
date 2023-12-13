@@ -1,63 +1,96 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
 import { currentUser } from "@clerk/nextjs";
 import { post, user as UserType } from "@/lib/interfaces";
-import Link from "next/link";
 import { fetchUser } from "@/lib/actions/user";
 
-const PostCard = async ({
-  post,
-  indicator,
-}: {
-  post: post;
-  indicator: string;
-}) => {
-  const CurrentUser = await currentUser();
+const useStyles = makeStyles((theme) => ({
+  card: {
+    maxWidth: 345,
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    "&:hover": {
+      boxShadow: `0px 4px 20px rgba(0, 0, 0, 0.1)`,
+    },
+  },
+  media: {
+    height: 140,
+    objectFit: "cover",
+  },
+  content: {
+    flexGrow: 1,
+  },
+  userContainer: {
+    display: "flex",
+    alignItems: "center",
+    gap: '4px',
+    marginTop: '16px',
+  },
+  avatar: {
+    width: '40px',
+    height: 128,
+  },
+  postInfoContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+}));
 
-  const user: UserType | null = await fetchUser(post?.authorId);
+const PostCard = ({ post, indicator }: { post: post; indicator: string }) => {
+  const classes = useStyles();
+  const [user, setUser] = useState<UserType | null>(null);
 
-  // Handle the case where the user is not found
-  if (!user || !CurrentUser) {
-    return null;
-  }
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const fetchedUser = await fetchUser(post?.authorId);
+      setUser(fetchedUser);
+    };
 
-  if (indicator === "main" && String(CurrentUser.id) === user.id) {
-    return null;
-  }
+    fetchUserData();
+  }, [post?.authorId]);
 
   return (
-    <Link
-      href={`/post/${post?.postId}`}
-    >
-      <div className="max-w-sm rounded overflow-hidden shadow-lg m-4 ml-2">
-        <Image
-          className="w-full h-64 object-cover object-center"
-          src={post?.cover}
-          alt={post?.title}
-          width={512}
-          height={512}
+    <Link href={`/post/${post?.postId}`}>
+      <Card className={classes.card}>
+        <CardMedia
+          className={classes.media}
+          image={post?.cover}
+          title={post?.title}
         />
-        <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">{post?.title}</div>
-          <p className="text-gray-700 text-base">
-            {post?.description?.substring(0, 200)}
-          </p>
-        </div>
-        <div className="flex gap-1 px-4 py-4">
-          <span className="flex items-center gap-3 bg-gray-200 rounded-full w-fit px-2 py-1 text-small-semibold font-semibold text-gray-700 mr-2">
-            <Image
-              className="rounded-full w-10 object-cover"
-              src={user?.image}
-              alt={user?.name}
-              width={128}
-              height={128}
-            />
-            <p>{user?.name}</p>
-          </span>
-          <span className="inline-block bg-gray-200 rounded-full px-2 py-3 text-small-medium font-semibold text-gray-700">
-            {new Date(post?.createdAt).toDateString()}
-          </span>
-        </div>
-      </div>
+        <CardContent className={classes.content}>
+          <Typography gutterBottom variant="h6" component="div">
+            {post?.title}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {post?.description}
+          </Typography>
+          <div className={classes.userContainer}>
+            <div className="flex items-center gap-3 bg-gray-200 rounded-full w-fit px-2 py-1 text-small-semibold font-semibold text-gray-700">
+              <Avatar
+                className={classes.avatar}
+                src={user?.image}
+                alt={user?.name}
+              />
+              <Typography variant="body2">{user?.name}</Typography>
+            </div>
+            <div className="inline-block px-2 py-3 text-small-medium font-semibold text-gray-500">
+              <Typography variant="body2">
+                {new Date(post?.createdAt).toDateString()}
+              </Typography>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </Link>
   );
 };

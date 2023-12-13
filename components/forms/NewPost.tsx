@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import remarkGfm from "remark-gfm";
 import Markdown from "react-markdown";
+import Button from "@mui/material/Button";
+import PostAddRoundedIcon from "@mui/icons-material/PostAddRounded";
 
 import CodeBlock from "../../components/ui/code";
 
@@ -20,7 +22,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 import { useUploadThing } from "@/lib/uploadthing";
@@ -363,8 +364,7 @@ const NewPost = ({ user, btnTitle }: Props) => {
               </FormItem>
             )}
           />
-
-          <Button type="submit" className="bg-primary-500">
+          <Button type="submit" variant="outlined" startIcon={<PostAddRoundedIcon />}>
             {btnTitle}
           </Button>
         </form>
