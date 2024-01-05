@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Typography } from "@mui/material";
 import PostCard from "@/components/shared/PostCard";
 import { post } from "@/lib/interfaces";
+import SkeletonLoader from "@/components/shared/SkeletonLoader";
 
 interface PostsProps {
   posts: Array<post> | null | any[] | undefined;

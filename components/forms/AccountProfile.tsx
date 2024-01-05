@@ -25,7 +25,7 @@ import { isBase64Image } from "@/lib/utils";
 import { UserValidation } from "@/lib/validations/user";
 import { createUser } from "@/lib/actions/user";
 import { post } from "@/lib/interfaces";
-import Loader from "../shared/Loader";
+import Loader from "../shared/SkeletonLoader";
 
 interface Props {
   user: {
