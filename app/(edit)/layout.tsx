@@ -1,9 +1,7 @@
 import "../globals.css";
 import { ClerkProvider, currentUser } from "@clerk/nextjs";
 import type { Metadata } from "next";
-import { useUrl } from 'nextjs-current-url';
 import Navbar from "@/components/shared/Navbar";
-import { useRouter } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Connectly",
@@ -15,8 +13,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { pathname } = useRouter();
-  console.log(pathname)
   const current = await currentUser();
 
   return (
@@ -35,7 +31,7 @@ export default async function RootLayout({
               <li className="me-2">
                 <a
                   href="/profile/edit/dashboard"
-                  className={`inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group`}
+                  className={`inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group `}
                   aria-current="page"
                 >
                   <svg
