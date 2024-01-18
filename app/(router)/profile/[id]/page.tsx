@@ -33,7 +33,7 @@ const page = async ({ params }: { params: { id: string } }) => {
           posts.map((post: post) => {
             console.log(post);
             return (
-              <div key={post?.postId}>
+              <div key={post?.postId} className="flex items-center justify-center gap-5 flex-wrap">
                 <PostCard post={post} indicator="Profile" />
               </div>
             );
