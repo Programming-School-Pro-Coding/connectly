@@ -2,6 +2,8 @@ import "../globals.css";
 import { ClerkProvider, currentUser } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import Navbar from "@/components/shared/Navbar";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: "Connectly",
@@ -32,6 +34,7 @@ export default async function RootLayout({
             email={String(current?.emailAddresses[0].emailAddress)}
           />
           {children}
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>

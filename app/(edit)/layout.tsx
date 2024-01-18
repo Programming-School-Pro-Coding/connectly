@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Analytics } from '@vercel/analytics/react';
 import Navbar from "@/components/shared/Navbar";
 import DashboardNavbar from "@/components/shared/DashboardNavbar";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   title: "Connectly",

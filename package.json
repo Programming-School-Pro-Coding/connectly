@@ -25,6 +25,7 @@
     "@types/react-syntax-highlighter": "^15.5.10",
     "@uploadthing/react": "^6.1.0",
     "@vercel/analytics": "^1.1.2",
+    "@vercel/speed-insights": "^1.0.5",
     "axios": "^1.5.1",
     "class-variance-authority": "^0.7.0",
     "lucide-react": "^0.288.0",
