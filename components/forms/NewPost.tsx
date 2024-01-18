@@ -67,8 +67,8 @@ const NewPost = ({ user, btnTitle }: Props) => {
     if (hasImageChanged) {
       const imgRes = await startUpload(files);
 
-      if (imgRes && imgRes[0].fileUrl) {
-        values.cover = imgRes[0].fileUrl;
+      if (imgRes && imgRes[0].url) {
+        values.cover = imgRes[0].url;
       }
     }
 
