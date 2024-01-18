@@ -24,7 +24,7 @@ export interface user {
     id: string;
     username: string;
     name: string;
-    email: string;
+    Email: string;
     links: {
         linkedin: string;
         twitter: string;

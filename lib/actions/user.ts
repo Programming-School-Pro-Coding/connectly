@@ -15,10 +15,10 @@ export async function handleUnFollow(fetchedId: string, currentId: string) {
     const userToUnFollow = await User.findOne({ id: fetchedId });
 
     const indexFollowing = currentUser.following.findIndex(
-      (followedUser: { id: string; }) => followedUser.id === fetchedId
+      (followedUser: { id: string }) => followedUser.id === fetchedId
     );
     const indexFollowers = userToUnFollow.followers.findIndex(
-      (follower: { id: string; }) => follower.id === currentId
+      (follower: { id: string }) => follower.id === currentId
     );
 
     if (indexFollowing !== -1 && indexFollowers !== -1) {
@@ -90,6 +90,7 @@ interface Params {
   following: Array<following>;
   followers: Array<follower>;
   email: string;
+  update: boolean;
 }
 
 export async function createUser({
@@ -104,6 +105,7 @@ export async function createUser({
   email,
   followers,
   following,
+  update,
 }: Params): Promise<void> {
   try {
     await dbManager.connectToDB();
@@ -121,8 +123,17 @@ export async function createUser({
       followers,
       onboarded: true,
     };
-    console.log(data);
-    await User.create(data);
+    console.log(data, "data");
+    if (update) {
+      await User.updateOne(
+        { id: data.id },
+        {
+          $set: data
+        }
+      );
+    } else {
+      await User.create(data);
+    }
   } catch (error: any) {
     throw new Error(`Failed to create/update user: ${error.message}`);
   }

@@ -25,7 +25,6 @@ import { isBase64Image } from "@/lib/utils";
 import { UserValidation } from "@/lib/validations/user";
 import { createUser } from "@/lib/actions/user";
 import { post } from "@/lib/interfaces";
-import Loader from "../shared/SkeletonLoader";
 
 interface Props {
   user: {
@@ -40,9 +39,10 @@ interface Props {
     posts: Array<post>;
   };
   btnTitle: string;
+  update: boolean;
 }
 
-const AccountProfile = ({ user, btnTitle }: Props) => {
+const AccountProfile = ({ user, btnTitle, update }: Props) => {
   const router = useRouter();
   const { startUpload } = useUploadThing("media");
   const [loading, setLoading] = useState(false);
@@ -71,8 +71,8 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       if (hasImageChanged) {
         const imgRes = await startUpload(files);
 
-        if (imgRes && imgRes[0].fileUrl) {
-          values.profile_photo = imgRes[0].fileUrl;
+        if (imgRes && imgRes[0].url) {
+          values.profile_photo = imgRes[0].url;
         }
       }
 
@@ -88,6 +88,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         following: [],
         followers: [],
         email: values.email,
+        update: update,
       });
 
       // redirect("/");
@@ -120,8 +121,6 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       fileReader.readAsDataURL(file);
     }
   };
-
-  if(loading) <Loader />
 
   return (
     <div>

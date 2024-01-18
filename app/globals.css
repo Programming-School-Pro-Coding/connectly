@@ -200,7 +200,7 @@ body {
 
 /* Account Profile  */
 .account-form_image-label {
-  @apply container flex w-[80%] h-[60vh] items-center justify-center rounded-lg bg-dark-4 flex-col;
+  @apply container flex w-[75%] h-[60vh] items-center justify-center rounded-lg bg-dark-4 flex-col;
 }
 
 .account-form_image-input {

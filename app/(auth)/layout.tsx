@@ -1,6 +1,7 @@
 import "../globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: "Connectly",
@@ -20,6 +21,7 @@ export default async function RootLayout({
           <div className="bg-black h-screen flex">
             <section className="flex flex-1 justify-center items-center flex-col w-1/2 py-10">
               {children}
+              <Analytics />
             </section>
 
 {/*             <img
